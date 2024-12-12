@@ -1,11 +1,16 @@
-import DollarCalculator from "@/components/dollar-calculaor.tsx/dollar-calculator";
-import { getExchangeRate, t_exchangeRate } from "@/model/exchage-rate";
+import WonDollar from "@/components/dollar-calculaor.tsx/won-dollar";
+import { getExchangeRate } from "@/model/exchage-rate";
+import { getExchangeRateSeries } from "@/model/historical-exchange-rate";
 
 export default async function Home() {
-    const exchageRate: t_exchangeRate = await getExchangeRate();
+    const exchageRate = getExchangeRate();
+    const exchangeRateSeries = await getExchangeRateSeries();
     return (
-        <div className="flex">
-            <DollarCalculator exchageRate={exchageRate.value} />
+        <div className="flex justify-center">
+            <WonDollar
+                exchageRate={exchageRate}
+                graphProp={exchangeRateSeries}
+            />
         </div>
     );
 }
